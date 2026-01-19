@@ -1,4 +1,6 @@
 package com.meeting.scheduler.meeting;
 
-public interface MeetingRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MeetingRepository extends JpaRepository<Meeting, Long> {
 }
