@@ -2,12 +2,16 @@ package com.meeting.scheduler.meeting;
 
 import com.meeting.scheduler.meeting.dto.CreateMeetingRequest;
 import com.meeting.scheduler.meeting.dto.CreateMeetingResponse;
+import com.meeting.scheduler.meeting.dto.MeetingListResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController //Json형태 객체 데이터 반환
 @RequiredArgsConstructor //생성자 자동 주입
@@ -26,5 +30,10 @@ public class MeetingController {
             @RequestBody @Valid CreateMeetingRequest request
     ) {
         return meetingService.createMeeting(getCurrentUserId(), request);
+    }
+
+    @GetMapping
+    public List<MeetingListResponse> getMeetings() {
+        return meetingService.getMeetings(getCurrentUserId());
     }
 }

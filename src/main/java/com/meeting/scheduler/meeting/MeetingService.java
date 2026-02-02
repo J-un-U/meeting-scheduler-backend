@@ -2,9 +2,12 @@ package com.meeting.scheduler.meeting;
 
 import com.meeting.scheduler.meeting.dto.CreateMeetingRequest;
 import com.meeting.scheduler.meeting.dto.CreateMeetingResponse;
+import com.meeting.scheduler.meeting.dto.MeetingListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +34,12 @@ public class MeetingService {
 
         Meeting saved = meetingRepository.save(meeting);
         return new CreateMeetingResponse(saved.getMeetingId());
+    }
+
+    @Transactional(readOnly = true)
+    public List<MeetingListResponse> getMeetings(Long ownerUserId) {
+        return meetingRepository.findByOwnerUserId(ownerUserId).stream()
+                .map(MeetingListResponse::from)
+                .toList();
     }
 }

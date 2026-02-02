@@ -9,7 +9,6 @@ public class CreateMeetingRequest {
     @NotBlank
     private String title;
 
-    @NotBlank
     private String description;
 
     @NotBlank
